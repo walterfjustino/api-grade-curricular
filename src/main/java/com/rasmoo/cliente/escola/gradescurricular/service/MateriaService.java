@@ -1,5 +1,6 @@
 package com.rasmoo.cliente.escola.gradescurricular.service;
 
+import com.rasmoo.cliente.escola.gradescurricular.controller.MateriaController;
 import com.rasmoo.cliente.escola.gradescurricular.dto.MateriaDto;
 import com.rasmoo.cliente.escola.gradescurricular.entity.MateriaEntity;
 import com.rasmoo.cliente.escola.gradescurricular.exception.MateriaException;
@@ -11,6 +12,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +42,10 @@ public class MateriaService implements IMateriaService {
     @Override
     public List<MateriaDto> listar() {
         try {
-            return this.mapper.map(this.materiaRepository.findAll(),new TypeToken<List<MateriaDto>>() {}.getType());
+            List<MateriaDto> materiaDto = this.mapper.map(this.materiaRepository.findAll(),new TypeToken<List<MateriaDto>>() {}.getType());
+            materiaDto.forEach(materia ->
+                    materia.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).consultaMateria(materia.getId())).withSelfRel()));
+            return materiaDto;
         } catch (Exception e) {
             throw new MateriaException(MENSAGEM_ERRO, HttpStatus.INTERNAL_SERVER_ERROR);
         }

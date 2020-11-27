@@ -2,7 +2,9 @@ package com.rasmoo.cliente.escola.gradescurricular.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 
 import javax.validation.constraints.Max;
@@ -10,8 +12,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Data
+@EqualsAndHashCode(callSuper = false)//utilizado pois a RepresentationModel tbm possui e não vamos utilizar dela
 @NoArgsConstructor
-public class MateriaDto {/*CAMADA DTO UTILIZADA QUANDO QUER MAPEAR PARTE DO DOMÍNIO DA APLICAÇÃO PARA UMA FORMATAÇÃO DO MODELO WEB JSON/XML;
+public class MateriaDto extends RepresentationModel<MateriaDto> {/*CAMADA DTO UTILIZADA QUANDO QUER MAPEAR PARTE DO DOMÍNIO DA APLICAÇÃO PARA UMA FORMATAÇÃO DO MODELO WEB JSON/XML;
                          //CAMADA RESPONSÁVEL POR INTERMEDIAR A CAMADA ENTIDADE E A REPRESENTAÇÃO WEB JSON/XML;
                          // RESPONSÁVEL POR CONVERSAR COM AS 2 CAMADAS E DIMINUIR QUALQUER TIPO DE PROBLEMA ENTRE ELAS;
                          // UTILIZADA PARA DEFINIR AS REGRAS DE NEGOCIO;*/
