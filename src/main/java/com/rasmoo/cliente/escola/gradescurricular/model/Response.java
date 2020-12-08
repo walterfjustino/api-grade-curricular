@@ -9,6 +9,12 @@ import org.springframework.hateoas.RepresentationModel;
 public class Response <T> extends RepresentationModel<Response<T>> {
 
     private int statusCode;
-    private T data; //objeto genérico q significa
-                    // q irá ser qualquer objeto que passe no Response
+    private T data; //objeto genérico q significa, q irá ser qualquer objeto que passe no Response
+    private Long timestamp;
+
+
+    public Response() {
+        this.timestamp = System.currentTimeMillis();
+
+    }
 }

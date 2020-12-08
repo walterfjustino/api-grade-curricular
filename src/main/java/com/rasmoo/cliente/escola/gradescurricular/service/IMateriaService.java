@@ -12,6 +12,16 @@ public interface IMateriaService {
     public List<MateriaDto> listar();
 
     /*
+     * LISTAR todas matérias por Hora.
+     */
+    public List<MateriaDto> listarPorHorarioMinimo(int horaMinima);
+
+    /*
+     * LISTAR todas matérias por Frequencia.
+     */
+    public List<MateriaDto> listarPorFrequencia(int frequencia);
+
+    /*
      * CONSULTA uma matéria a partir do ID.
      */
     public MateriaDto consultar(final Long id);
